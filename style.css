@@ -1,0 +1,268 @@
+/* Import Custom Font */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
+
+/* --- New "Glassmorphism" Color Palette --- */
+:root {
+    --text-color: #1d3557;
+    --primary-accent: #457b9d;
+    --secondary-accent: #a8dadc;
+    --income-color: #2a9d8f;
+    --expense-color: #e63946;
+    --edit-color: #1d3557;
+    --shadow-color: rgba(0, 0, 0, 0.1);
+    --card-background: rgba(255, 255, 255, 0.55);
+    --border-color: rgba(255, 255, 255, 0.25);
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    color: var(--text-color);
+    /* --- New Unique Gradient Background --- */
+    background: linear-gradient(120deg, #a1c4fd 0%, #c2e9fb 100%);
+    background-attachment: fixed; /* Prevents gradient from scrolling */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    padding: 20px;
+}
+
+.container {
+    /* --- New Frosted Glass Effect --- */
+    background: var(--card-background);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px); /* For Safari */
+    border: 1px solid var(--border-color);
+    box-shadow: 0 8px 32px 0 var(--shadow-color);
+    
+    padding: 30px;
+    border-radius: 15px;
+    width: 100%;
+    max-width: 450px;
+}
+
+header {
+    position: relative;
+}
+
+h1 {
+    color: var(--primary-accent);
+    letter-spacing: 1px;
+    text-align: center;
+    font-weight: 700;
+}
+
+header p {
+    text-align: center;
+    margin-bottom: 25px;
+    font-size: 0.9em;
+    opacity: 0.8;
+}
+
+/* Options Menu Styles */
+.options-menu {
+    position: absolute;
+    top: -10px;
+    right: -15px;
+}
+.options-btn {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 10px;
+    border-radius: 50%;
+    transition: background-color 0.3s;
+}
+.options-btn:hover {
+    background-color: rgba(255, 255, 255, 0.3);
+}
+.options-btn svg {
+    fill: var(--text-color);
+    width: 5px;
+    height: 20px;
+}
+.options-dropdown {
+    position: absolute;
+    top: 50px;
+    right: 0;
+    background: var(--card-background);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    box-shadow: 0 8px 16px var(--shadow-color);
+    overflow: hidden;
+    z-index: 10;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-10px);
+    transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s;
+}
+.options-dropdown.show {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+.options-dropdown button {
+    background: none;
+    border: none;
+    color: var(--text-color);
+    padding: 12px 20px;
+    display: block;
+    width: 100%;
+    text-align: left;
+    cursor: pointer;
+    font-family: 'Poppins', sans-serif;
+    font-size: 14px;
+    transition: background-color 0.3s;
+}
+.options-dropdown button:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+}
+#reset-btn:hover {
+    color: var(--expense-color);
+}
+
+h3 {
+    border-bottom: 1px solid var(--secondary-accent);
+    padding-bottom: 10px;
+    margin: 30px 0 15px;
+}
+
+h4 {
+    margin: 0;
+    text-transform: uppercase;
+    font-weight: 600;
+}
+
+#balance {
+    font-size: 2.5em;
+    letter-spacing: 1px;
+    margin: 5px 0 25px;
+    text-align: center;
+    transition: color 0.3s ease;
+}
+
+.summary-container {
+    display: flex;
+    justify-content: space-between;
+    background: rgba(255, 255, 255, 0.2);
+    padding: 20px;
+    border-radius: 10px;
+}
+
+.summary-card { flex: 1; text-align: center; }
+.summary-card:first-of-type { border-right: 1px solid var(--secondary-accent); }
+.money { font-size: 1.5em; letter-spacing: 1px; margin: 5px 0; }
+.money.plus { color: var(--income-color); }
+.money.minus { color: var(--expense-color); }
+
+.list { list-style-type: none; padding: 0; margin-bottom: 10px; max-height: 200px; overflow-y: auto; }
+.list li {
+    background: rgba(255, 255, 255, 0.2);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+    padding: 12px;
+    margin: 10px 0;
+    border-radius: 8px;
+    border-left: 5px solid; /* Changed from border-right for a fresh look */
+    animation: slideIn 0.4s ease-out forwards;
+    opacity: 0;
+    transition: opacity 0.4s ease, transform 0.4s ease, background-color 0.3s;
+}
+.list li:hover {
+    background: rgba(255, 255, 255, 0.4);
+}
+.list li.removing { opacity: 0; transform: translateX(-120%); }
+
+@keyframes slideIn {
+    from { transform: translateX(100%); opacity: 0; }
+    to { transform: translateX(0); opacity: 1; }
+}
+
+.list li.plus { border-color: var(--income-color); }
+.list li.minus { border-color: var(--expense-color); }
+
+.list li .content { flex-grow: 1; display: flex; justify-content: space-between; align-items: center; }
+.transaction-details { display: flex; flex-direction: column; align-items: flex-start; }
+.transaction-text { font-weight: 600; }
+.transaction-date { font-size: 0.75em; opacity: 0.8; margin-top: 2px; }
+.transaction-amount { font-weight: 600; font-size: 1.1em; }
+
+.list li .actions { display: flex; gap: 5px; margin-left: 10px; opacity: 0; transition: opacity 0.3s ease; }
+.list li:hover .actions { opacity: 1; }
+.list li .actions button { cursor: pointer; border: 0; color: white; font-size: 14px; width: 28px; height: 28px; border-radius: 50%; transition: transform 0.2s ease; }
+.list li .actions button:hover { transform: scale(1.1); }
+
+.edit-btn { background-color: var(--edit-color); }
+.delete-btn { background-color: var(--expense-color); }
+.save-btn { background-color: var(--income-color); }
+
+.list li.editing .content { display: none; }
+.list li.editing .edit-form { display: flex; flex-grow: 1; gap: 10px; align-items: center; }
+.edit-form { display: none; }
+.edit-form input {
+    background-color: rgba(255, 255, 255, 0.5);
+    border: 1px solid var(--secondary-accent);
+    color: var(--text-color);
+    padding: 5px;
+    border-radius: 4px;
+    font-family: 'Poppins', sans-serif;
+}
+.edit-form input:focus { outline: none; border-color: var(--primary-accent); }
+.edit-form .edit-text { flex-grow: 1; }
+.edit-form .edit-amount { width: 80px; }
+
+#undo-container { transform: translateY(120%); transition: transform 0.4s ease-in-out; padding-top: 5px; }
+#undo-container.show { transform: translateY(0); }
+.undo-message { background-color: var(--text-color); color: #fff; display: flex; justify-content: space-between; align-items: center; padding: 12px; border-radius: 8px; box-shadow: 0 4px 15px var(--shadow-color); animation: fadeIn 0.5s ease; }
+.undo-message button { background: none; border: 1px solid #fff; color: #fff; border-radius: 5px; padding: 5px 10px; cursor: pointer; font-weight: bold; transition: background-color 0.3s, color 0.3s; }
+.undo-message button:hover { background-color: #fff; color: var(--text-color); }
+
+.form-control { margin-bottom: 15px; }
+.form-control label { display: inline-block; margin-bottom: 5px; font-weight: 600; }
+.form-control input {
+    border: 1px solid var(--secondary-accent);
+    background-color: rgba(255, 255, 255, 0.5);
+    border-radius: 8px;
+    display: block;
+    width: 100%;
+    padding: 12px;
+    font-size: 1em;
+    color: var(--text-color);
+    transition: border-color 0.3s;
+}
+.form-control input::placeholder { color: var(--text-color); opacity: 0.6; }
+.form-control input:focus { outline: none; border-color: var(--primary-accent); }
+.form-control small { opacity: 0.8; margin-top: 5px; display: block; }
+
+.btn {
+    cursor: pointer;
+    background-color: var(--primary-accent);
+    color: #fff;
+    border: 0;
+    display: block;
+    font-size: 16px;
+    font-weight: 600;
+    margin-top: 20px;
+    padding: 12px;
+    width: 100%;
+    border-radius: 8px;
+    transition: transform 0.2s ease, background-color 0.3s ease;
+}
+.btn:hover { background-color: #3b6885; }
+.btn:active { transform: scale(0.98); }
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}

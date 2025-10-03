@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Personal Finance Tracker</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="container">
+        <header>
+            <h1>Finance Tracker</h1>
+            <p>Your Personal Balance Sheet</p>
+
+            <div class="options-menu">
+                <button id="options-btn" class="options-btn" title="Options">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 512" width="20" height="20">
+                        <path d="M64 360a56 56 0 1 0 0 112 56 56 0 1 0 0-112zm0-160a56 56 0 1 0 0 112 56 56 0 1 0 0-112zM120 56A56 56 0 1 0 8 56a56 56 0 1 0 112 0z"/>
+                    </svg>
+                </button>
+                <div id="options-dropdown" class="options-dropdown">
+                    <button id="download-btn">⬇️ Download CSV</button>
+                    <button id="reset-btn">🔄 Reset Data</button>
+                </div>
+            </div>
+            </header>
+
+        <main>
+            <section class="balance-section">
+                <h4>Your Balance:</h4>
+                <h2 id="balance">₹0.00</h2>
+            </section>
+
+            <section class="summary-container">
+                <div class="summary-card income-card">
+                    <h4>Income</h4>
+                    <p id="money-plus" class="money plus">+₹0.00</p>
+                </div>
+                <div class="summary-card expense-card">
+                    <h4>Expense</h4>
+                    <p id="money-minus" class="money minus">-₹0.00</p>
+                </div>
+            </section>
+
+            <section class="history-section">
+                <h3>Transaction History</h3>
+                <ul id="list" class="list">
+                    </ul>
+                <div id="undo-container"></div>
+            </section>
+
+            <section class="transaction-section">
+                <h3>Add New Transaction</h3>
+                <form id="form">
+                    <div class="form-control">
+                        <label for="text">Description</label>
+                        <input type="text" id="text" placeholder="Enter description..." autocomplete="off" />
+                    </div>
+                    <div class="form-control">
+                        <label for="amount">Amount</label>
+                        <input type="number" id="amount" placeholder="Enter amount..." step="1" />
+                        <small>Use a positive number for income, negative for expense.</small>
+                    </div>
+                    <button class="btn">Add Transaction</button>
+                </form>
+            </section>
+        </main>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
